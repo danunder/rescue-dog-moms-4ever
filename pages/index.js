@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { getEpisodeData, formatEpisodeData } from '../lib/episodes'
@@ -39,25 +40,74 @@ const StyledMain = styled.main({
   alignItems: 'center'
 })
 
+const StyledEpisodeContainer = styled.div({
+  padding: 0,
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  justifyContent: 'center',
+  alignItems: 'center',
+  maxWidth: '1200px'
+})
+
 const StyledEpisode = styled.div({
   margin: '1rem',
-  padding: '1.5rem',
+  padding: '1rem',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
   textAlign: 'center',
   color: 'inherit',
   border: `2px solid ${siteTheme.darkGreen}`,
   borderRadius: '25px',
-  transition: 'color 0.15s ease, border-color 0.15s ease, text-shadow 0.15s ease, box-shadow 0.15s ease',
-  width: '650px',
+  boxShadow: `1px 1px ${siteTheme.darkPink}`,
+  transition: 'color 0.15s ease, border 0.15s ease, text-shadow 0.15s ease, box-shadow 0.15s ease, height 0.15s ease, width 0.15s ease',
+  height: '500px',
+  width: '350px',
   maxWidth: '90vw',
   fontFamily: 'Lobster',
   ":active, :focus, :hover": {
     color: `${siteTheme.darkPink}`,
     textShadow: `1px 1px ${siteTheme.pink}`,
-    borderColor: `${siteTheme.darkPink}`,
+    border: `3px solid${siteTheme.darkPink}`,
     boxShadow: `1px 1px ${siteTheme.pink}`,
+    height: '510px',
+    width: '360px'
+  },
+  h2: {
+    maxWidth: '300px'
   }
 })
 
+const StyledModalWrapper = styled.div({
+  zIndex: '1',
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  height: '100vh',
+  width: '100vw',
+  background: 'rgba(0,0,0,0.5)'
+})
+
+const StyledModal = styled.div({
+  zIndex: '2',
+  position: 'fixed',
+  backgroundColor: `${siteTheme.pink}`,
+  top: '7vh',
+  left: '3vw',
+  height: '88vh',
+  width: '94vw',
+  border: `3px solid ${siteTheme.lightPink}`,
+  borderBottom: 'none',
+  borderRight: 'none',
+  borderRadius: '30px',
+  boxShadow: `4px 4px 4px ${siteTheme.darkPink}`,
+  padding: '1rem'
+})
+const StyledButton = styled.button({
+
+})
 const StyledIconsWrapper = styled.span({
   height: '1rem',
   marginTop: '0.75rem',
@@ -68,24 +118,39 @@ const StyledIconWrapper = styled.a({
 })
 
 export default function Home({ episodes }) {
+
+  const [ show, setShow ] = useState(true)
+  useEffect(() => setShow(false), [])
+
+  const latest = episodes[0]
+  const [ selected, setSelected ] = useState(latest.id)
+  const selectedEpisode = episodes.find((ep) => ep.id === selected)
+  const {
+    title: selectedEpisodeTitle,
+    description: selectedEpisodeDescription,
+    published_at: selectedEpisodePublishedDate
+  } = selectedEpisode
+
+  const handleEpisodeSelect = (id) => {
+    setSelected(id)
+    setShow(true)
+  }
   const episodeList = episodes.map(({
     id,
     title,
-    description,
-    published_at,
     artwork_url
   }) =>(
-      <StyledEpisode key={id} >
+      <StyledEpisode key={id} onClick={() => handleEpisodeSelect(id)}>
         <h2>{title}</h2>
-        <Image src={artwork_url} alt={`episode ${id} artwork`} width={300} height={300}/>
+        <Image src={artwork_url} alt={`episode ${id} artwork`} width={350} height={350}/>
       </StyledEpisode>
   ))
   const socialIcons = socials
     .filter(({ makeIconLink }) => makeIconLink)
-    .map(({ service, icon, link }, i) => {
+    .map(({ service, icon, url }, i) => {
       return (
         <StyledIconWrapper
-          href={link}
+          href={url}
           rel="noopener noreferrer"
           target="_blank"
           key={i}
@@ -113,10 +178,21 @@ export default function Home({ episodes }) {
         <h3>A parenting podcast</h3>
       </StyledPageHeader>
       <StyledMain>
+      { show &&
+        <StyledModalWrapper onClick={() => setShow(false)}>
+          <StyledModal >
+            <h2>{selectedEpisodeTitle}</h2>
+            <h3>{selectedEpisodePublishedDate}</h3>
+            <div dangerouslySetInnerHTML={selectedEpisodeDescription} />
+          </StyledModal>
+        </StyledModalWrapper>
+      }
         <StyledIconsWrapper>
           {socialIcons}
         </StyledIconsWrapper>
-        {episodeList}
+        <StyledEpisodeContainer>
+          {episodeList}
+        </StyledEpisodeContainer>
       </StyledMain>
     </StyledPageContainer>
   )
