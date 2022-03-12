@@ -30,9 +30,9 @@ export const StyledLinkWrapper = styled.a({
 })
 export const StyledLink = styled.div({
   width: '100%',
-  border: `2px solid ${siteTheme.pink}`,
+  border: `2px solid ${siteTheme.darkGreen}`,
   borderRadius: '40px',
-  transition: 'color 0.15s ease, border-color 0.15s ease, font-size 0.15s ease',
+  transition: 'color 0.15s ease, border-color 0.15s ease, font-size 0.15s ease, text-shadow 0.15s ease, box-shadow 0.15s ease',
   margin: 0,
   display: 'flex',
   flexDirection: 'row',
@@ -43,7 +43,9 @@ export const StyledLink = styled.div({
   padding: '0.5rem',
   ":active, :focus, :hover": {
     color: `${siteTheme.darkPink}`,
+    textShadow: `1px 1px ${siteTheme.pink}`,
     borderColor: `${siteTheme.darkPink}`,
+    boxShadow: `1px 1px ${siteTheme.pink}`,
     fontSize: '18px'
   }
 })

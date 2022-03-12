@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import { useState } from 'react'
 import { getEpisodeData, formatEpisodeData } from '../lib/episodes'
 import { socials } from '../lib/links'
 import styled from 'styled-components'
@@ -33,17 +31,60 @@ const StyledPageHeader = styled.header({
   marginBottom: '1rem'
 })
 
+const StyledMain = styled.main({
+  padding: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center'
+})
+
+const StyledEpisode = styled.div({
+  margin: '1rem',
+  padding: '1.5rem',
+  textAlign: 'center',
+  color: 'inherit',
+  border: `2px solid ${siteTheme.darkGreen}`,
+  borderRadius: '25px',
+  transition: 'color 0.15s ease, border-color 0.15s ease, text-shadow 0.15s ease, box-shadow 0.15s ease',
+  width: '650px',
+  maxWidth: '90vw',
+  fontFamily: 'Lobster',
+  ":active, :focus, :hover": {
+    color: `${siteTheme.darkPink}`,
+    textShadow: `1px 1px ${siteTheme.pink}`,
+    borderColor: `${siteTheme.darkPink}`,
+    boxShadow: `1px 1px ${siteTheme.pink}`,
+  }
+})
+
+const StyledIconsWrapper = styled.span({
+  height: '1rem',
+  marginTop: '0.75rem',
+  marginBottom: '4rem'
+})
+const StyledIconWrapper = styled.a({
+  margin: '1rem'
+})
+
 export default function Home({ episodes }) {
-
-  const [ selected, setSelected ] = useState(episodes[0].id)
-
-  const selectedEpisode = episodes.find(ep => ep.id === selected)
+  const episodeList = episodes.map(({
+    id,
+    title,
+    description,
+    published_at,
+    artwork_url
+  }) =>(
+      <StyledEpisode key={id} >
+        <h2>{title}</h2>
+        <Image src={artwork_url} alt={`episode ${id} artwork`} width={300} height={300}/>
+      </StyledEpisode>
+  ))
   const socialIcons = socials
     .filter(({ makeIconLink }) => makeIconLink)
     .map(({ service, icon, link }, i) => {
       return (
-        <a
-          className={styles.icon}
+        <StyledIconWrapper
           href={link}
           rel="noopener noreferrer"
           target="_blank"
@@ -55,7 +96,7 @@ export default function Home({ episodes }) {
             width={50}
             height={50}
           />
-        </a>
+        </StyledIconWrapper>
       )
     })
 
@@ -64,44 +105,19 @@ export default function Home({ episodes }) {
       <Head>
         <title>Rescue Dog Moms</title>
         <meta name="description" content="A parenting podcast" />
-        <link rel="icon" href="/RDM-logo.png" />
+        <link rel="icon" href="/RDM_LOGO_2.png" />
       </Head>
-
-        {/* HEADER */}
       <StyledPageHeader>
-        <Image src="/RDM_LOGO_2.png" alt="Rescue Dog Moms" width={714} height={900} />
+        <Image src="/RDM_LOGO_2.png" alt="Rescue Dog Moms" width={476} height={600} />
         <h1>Rescue Dog Moms</h1>
         <h3>A parenting podcast</h3>
       </StyledPageHeader>
-      <main className={styles.main}>
-
-        {/* SOCIAL ICON LINKS */}
-        <span className={styles.icons}>
+      <StyledMain>
+        <StyledIconsWrapper>
           {socialIcons}
-        </span>
-        {/*HTML5 AUDIO PLAYER*/}
-
-        {/* EPISODES */}
-        {episodes.map(({
-          id,
-          title,
-          description,
-          published_at,
-          artwork_url
-        }) =>(
-            <div key={id} className={styles.card}>
-              <div>
-                <h2>{title}</h2>
-                <Image src={artwork_url} alt={`episode ${id} artwork`} width={500} height={500}/>
-                <button onClick={() => setSelected(id)}>Listen to this episode</button>
-              </div>
-            </div>
-        ))}
-      </main>
-
-      <footer className={styles.footer}>
-
-      </footer>
+        </StyledIconsWrapper>
+        {episodeList}
+      </StyledMain>
     </StyledPageContainer>
   )
 }
