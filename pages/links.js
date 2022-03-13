@@ -6,39 +6,16 @@ import {
   StyledPageHeader,
   StyledMain,
   StyledLinkWrapper,
-  StyledLink,
-  StyledIconWrapper
+  StyledLink
 } from '../styles/links'
 
 export default function Links () {
   const linkList = socials.map((link) => {
-    const { service, icon, url, linkText } = link
+    const { service, url, linkText } = link
     return (
       <StyledLinkWrapper href={url} rel="noopener noreferrer" target="_blank" key={service}>
         <StyledLink>
-        {icon && (
-            <StyledIconWrapper>
-              <Image
-                layout={'fixed'}
-                src={icon}
-                alt={`${service} logo`}
-                height={15}
-                width={15}
-            />
-          </StyledIconWrapper>
-          )}
           <h2>{linkText}</h2>
-          {icon && (
-            <StyledIconWrapper>
-              <Image
-                layout={'fixed'}
-                src={icon}
-                alt={`${service} logo`}
-                height={15}
-                width={15}
-              />
-          </StyledIconWrapper>
-          )}
         </StyledLink>
       </StyledLinkWrapper>
     )
