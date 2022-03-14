@@ -3,20 +3,20 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { getEpisodeData, formatEpisodeData } from '../lib/episodes'
 import { socials } from '../lib/links'
+import { Episodes } from '../components/episodes'
+import { Modal } from '../components/modal'
 import {
   StyledPageContainer,
   StyledPageHeader,
   StyledMain,
-  StyledEpisodeContainer,
-  StyledEpisode,
-  StyledModalWrapper,
-  StyledModal,
-  StyledCloseButton,
   StyledIconsWrapper,
   StyledIconWrapper,
 } from '../styles/index'
 
 export default function Home({ episodes }) {
+  const latest = episodes[0]
+  const [ selected, setSelected ] = useState(latest.id)
+  const selectedEpisode = episodes.find((ep) => ep.id === selected)
 
   const [ show, setShow ] = useState(true)
   useEffect(() => setShow(false), [])
@@ -25,29 +25,11 @@ export default function Home({ episodes }) {
     body.style.overflow = show ? "hidden" : "auto"
   }, [show])
 
-  const latest = episodes[0]
-  const [ selected, setSelected ] = useState(latest.id)
-  const selectedEpisode = episodes.find((ep) => ep.id === selected)
-  const {
-    title: selectedEpisodeTitle,
-    description: selectedEpisodeDescription,
-    published_at: selectedEpisodePublishedDate
-  } = selectedEpisode
-
   const handleEpisodeSelect = (id) => {
     setSelected(id)
     setShow(true)
   }
-  const episodeList = episodes.map(({
-    id,
-    title,
-    artwork_url
-  }) =>(
-      <StyledEpisode key={id} onClick={() => handleEpisodeSelect(id)}>
-        <h2>{title}</h2>
-        <Image src={artwork_url} alt={`episode ${id} artwork`} width={350} height={350}/>
-      </StyledEpisode>
-  ))
+
   const socialIcons = socials
     .filter(({ makeIconLink }) => makeIconLink)
     .map(({ service, icon, url }, i) => {
@@ -82,21 +64,18 @@ export default function Home({ episodes }) {
       </StyledPageHeader>
       <StyledMain>
       { show &&
-        <StyledModalWrapper onClick={() => setShow(false)}>
-          <StyledModal onClick={e => e.stopPropagation()}>
-            <h2>{selectedEpisodeTitle}</h2>
-            <h3>{selectedEpisodePublishedDate}</h3>
-            <div dangerouslySetInnerHTML={selectedEpisodeDescription} />
-            <StyledCloseButton onClick={() => setShow(false)}>X</StyledCloseButton>
-          </StyledModal>
-        </StyledModalWrapper>
+        <Modal
+          episode={selectedEpisode}
+          onClose={() => setShow(false)}
+        />
       }
         <StyledIconsWrapper>
           {socialIcons}
         </StyledIconsWrapper>
-        <StyledEpisodeContainer>
-          {episodeList}
-        </StyledEpisodeContainer>
+        <Episodes
+          episodes={episodes}
+          onSelect={handleEpisodeSelect}
+        />
       </StyledMain>
     </StyledPageContainer>
   )
