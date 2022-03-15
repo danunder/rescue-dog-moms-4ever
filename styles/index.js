@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { siteTheme } from '../styles/theme.config'
 
-const StyledPageContainer = styled.div({
+export const StyledPageContainer = styled.div({
   padding: 0,
   background: `${siteTheme.green}`,
   width: '100%',
@@ -12,7 +12,7 @@ const StyledPageContainer = styled.div({
   alignItems: 'center'
 })
 
-const StyledPageHeader = styled.header({
+export const StyledPageHeader = styled.header({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'flex-start',
@@ -27,27 +27,10 @@ const StyledPageHeader = styled.header({
   marginBottom: '1rem'
 })
 
-const StyledMain = styled.main({
+export const StyledMain = styled.main({
   padding: 0,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center'
 })
-
-const StyledIconsWrapper = styled.span({
-  height: '1rem',
-  marginTop: '0.75rem',
-  marginBottom: '4rem'
-})
-const StyledIconWrapper = styled.a({
-  margin: '1rem'
-})
-
-module.exports = {
-  StyledPageContainer,
-  StyledPageHeader,
-  StyledMain,
-  StyledIconsWrapper,
-  StyledIconWrapper,
-}
