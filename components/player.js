@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
+import Image from 'next/image'
 import { FaPlay, FaPause } from 'react-icons/fa'
 import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs'
 import { siteTheme } from '../styles/theme.config'
@@ -6,7 +7,7 @@ import styled from 'styled-components'
 const StyledAudioWrapper = styled.div({
   position: 'relative',
   width: '90%',
-  height: '300px',
+
   margin: '1rem',
   padding: '1rem',
   boxShadow: '0 0 30px rgba(0,0,0,0.8)',
@@ -14,6 +15,24 @@ const StyledAudioWrapper = styled.div({
   background: siteTheme.darkGreen,
   overflow: 'hidden',
   zIndex: 0
+})
+const StyledWrapper = styled.div({
+  maxWidth: '95vw',
+  '.backgroundImage': {
+    opacity: '35%',
+    zIndex: '-1',
+    borderRadius: '10px'
+  },
+  zIndex: '-1',
+  h3: {
+    padding: '5%',
+    position: 'absolute',
+    top: '16px',
+    fontSize: '18px',
+    color: siteTheme.lightPink,
+    textShadow: `2px 2px 1px ${siteTheme.darkPink}`
+  }
+
 })
 const StyledPlayButton = styled.button({
   background: siteTheme.lightPink,
@@ -23,6 +42,7 @@ const StyledPlayButton = styled.button({
   height: '50px',
   fontSize: '24px',
   color: siteTheme.darkPink,
+  boxShadow: `1px 1px 1px ${siteTheme.darkPink}`,
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -47,6 +67,7 @@ width: 100%;
 height: 11px;
 outline: none;
 margin-top: 3px;
+box-shadow: 2px 2px 1px ${siteTheme.darkPink};
 ::before {
   content: '';
   height: 11px;
@@ -125,18 +146,31 @@ const StyledForwardBack = styled.button`
   border: none;
   display: flex;
   align-items: center;
-  font-size: 16px;
+  font-size: 18px;
+  color: ${siteTheme.lightPink};
+  text-shadow: 1px 1px 1px ${siteTheme.darkPink};
   cursor: pointer;
   margin: 1rem;
 `
 const StyledTime = styled.div`
   margin: 0 0.5rem;
 `
+const StyledControlBox = styled.div`
+  position: absolute;
+  bottom: 50px;
+  width: 80vw;
+  margin: 0;
+  padding: 0;
+  color: ${siteTheme.lightPink};
+  text-shadow: 1px 1px 1px ${siteTheme.darkPink};
+
+`
+
 const StyledControlsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 0.5rem;
+  margin-top: 0.5rem;
 `
 
 export const Player = ({ episode }) => {
@@ -215,17 +249,22 @@ export const Player = ({ episode }) => {
 
   return (
     <StyledAudioWrapper>
-      <h3>Episode {episode_number} - {title}</h3>
-      <StyledControlsWrapper>
-        <StyledForwardBack onClick={backThirty}><BsArrowLeftShort/>30</StyledForwardBack>
-        <StyledPlayButton onClick={togglePlayPause}>{isPlaying? <FaPause/> : <FaPlay className='play'/>}</StyledPlayButton>
-        <StyledForwardBack onClick={forwardThirty}>30<BsArrowRightShort/></StyledForwardBack>
-      </StyledControlsWrapper>
-      <StyledControlsWrapper>
-      <StyledTime>{calculateTime(currentTime)}</StyledTime>
-      <StyledProgressBar type="range" ref={progressBar} onChange={changeRange} defaultValue="0"/>
-      <StyledTime>{(duration && !isNaN(duration)) && calculateTime(duration)}</StyledTime>
-      </StyledControlsWrapper>
+      <StyledWrapper >
+        <h3>Episode {episode_number} - {title}</h3>
+        <Image src={artwork_url} height={400} width={400} alt={`Episode ${episode_number} artwork`} className='backgroundImage'/>
+        <StyledControlBox>
+          <StyledControlsWrapper>
+            <StyledForwardBack onClick={backThirty}><BsArrowLeftShort/>30</StyledForwardBack>
+            <StyledPlayButton onClick={togglePlayPause}>{isPlaying? <FaPause/> : <FaPlay className='play'/>}</StyledPlayButton>
+            <StyledForwardBack onClick={forwardThirty}>30<BsArrowRightShort/></StyledForwardBack>
+          </StyledControlsWrapper>
+          <StyledControlsWrapper>
+            <StyledTime>{calculateTime(currentTime)}</StyledTime>
+            <StyledProgressBar type="range" ref={progressBar} onChange={changeRange} defaultValue="0"/>
+            <StyledTime>{(duration && !isNaN(duration)) && calculateTime(duration)}</StyledTime>
+          </StyledControlsWrapper>
+        </StyledControlBox>
+      </StyledWrapper>
 
       <audio src='' ref={audioPlayer}  />
 
