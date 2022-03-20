@@ -15,12 +15,14 @@ import {
 export default function Home({ episodes }) {
 
   const [ selected, setSelected ] = useState(episodes[0].id)
-  const [ selectedEpisode, setSelectedEpisode ] = useState(episodes[0])
+  const [ selectedEpisode, setSelectedEpisode ] = useState(null)
   const [ show, setShow ] = useState(true)
+  const [ playerEpisode, setPlayerEpisode ] = useState(null)
 
   useEffect(() => {
     setShow(false)
-  }, [])
+    setPlayerEpisode(episodes[0])
+  }, [episodes])
   useEffect(() => {
     const body = document.querySelector("body")
     body.style.overflow = show ? "hidden" : "auto"
@@ -47,10 +49,10 @@ export default function Home({ episodes }) {
       </StyledPageHeader>
       <StyledMain>
         <SocialLinks/>
-        { selectedEpisode &&
-          <Player episode={selectedEpisode} />
+        { playerEpisode &&
+          <Player episode={playerEpisode} />
         }
-        { show &&
+        { selectedEpisode && show &&
           <Modal
             episode={selectedEpisode}
             onClose={() => setShow(false)}
