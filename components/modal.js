@@ -58,9 +58,13 @@ const StyledCloseButton = styled.button({
   }
 })
 
+const StyledPlayEpisodeButton = styled.button`
+`
+
 export const Modal = ({
   episode,
-  onClose
+  onClose,
+  onPlayerEpisodeSelect
  }) => {
   const {
     title: selectedEpisodeTitle,
@@ -72,6 +76,7 @@ export const Modal = ({
     <StyledModalWrapper onClick={onClose}>
       <StyledModal onClick={e => e.stopPropagation()}>
         {selectedEpisodeTitle && <h2>{selectedEpisodeTitle}</h2>}
+        <StyledPlayEpisodeButton onClick={onPlayerEpisodeSelect()}>Listen to this episode</StyledPlayEpisodeButton>
         {selectedEpisodePublishedDate && <h3>{selectedEpisodePublishedDate}</h3>}
         {selectedEpisodeDescription && <div dangerouslySetInnerHTML={selectedEpisodeDescription} />}
         <StyledCloseButton onClick={onClose}>X</StyledCloseButton>

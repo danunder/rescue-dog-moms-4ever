@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { getEpisodeData, formatEpisodeData } from '../lib/episodes'
@@ -19,6 +19,8 @@ export default function Home({ episodes }) {
   const [ show, setShow ] = useState(true)
   const [ playerEpisode, setPlayerEpisode ] = useState(null)
 
+  const playerRef = useRef()
+
   useEffect(() => {
     setShow(false)
     setPlayerEpisode(episodes[0])
@@ -35,6 +37,13 @@ export default function Home({ episodes }) {
     setSelected(id)
     setShow(true)
   }
+  const handlePlayerEpisodeSelect = () => {
+    setPlayerEpisode(selectedEpisode)
+    setShow(false)
+  }
+  useEffect(() => {
+    playerRef?.current?.focus()
+  }, [playerEpisode])
 
   return (
     <StyledPageContainer>
@@ -50,12 +59,16 @@ export default function Home({ episodes }) {
       <StyledMain>
         <SocialLinks/>
         { playerEpisode &&
-          <Player episode={playerEpisode} />
+          <Player
+            ref={playerRef}
+            episode={playerEpisode}
+          />
         }
         { selectedEpisode && show &&
           <Modal
             episode={selectedEpisode}
             onClose={() => setShow(false)}
+            onPlayerEpisodeSelect={() => handlePlayerEpisodeSelect}
           />
         }
         <Episodes

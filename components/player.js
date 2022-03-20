@@ -6,8 +6,6 @@ import { siteTheme } from '../styles/theme.config'
 import styled from 'styled-components'
 const StyledAudioWrapper = styled.div({
   position: 'relative',
-  width: '90%',
-
   margin: '1rem',
   padding: '1rem',
   boxShadow: '0 0 30px rgba(0,0,0,0.8)',
@@ -17,7 +15,7 @@ const StyledAudioWrapper = styled.div({
   zIndex: 0
 })
 const StyledWrapper = styled.div({
-  maxWidth: '95vw',
+  maxWidth: '450px',
   '.backgroundImage': {
     opacity: '35%',
     zIndex: '-1',
@@ -25,10 +23,12 @@ const StyledWrapper = styled.div({
   },
   zIndex: '-1',
   h3: {
-    padding: '5%',
+    margin: '1.5rem',
     position: 'absolute',
     top: '16px',
-    fontSize: '18px',
+    left: '0px',
+    fontSize: '24px',
+    textAlign: 'center',
     color: siteTheme.lightPink,
     textShadow: `2px 2px 1px ${siteTheme.darkPink}`
   }
@@ -38,8 +38,8 @@ const StyledPlayButton = styled.button({
   background: siteTheme.lightPink,
   border: 'none',
   borderRadius: '50%',
-  width: '50px',
-  height: '50px',
+  width: '75px',
+  height: '75px',
   fontSize: '24px',
   color: siteTheme.darkPink,
   boxShadow: `1px 1px 1px ${siteTheme.darkPink}`,
@@ -67,7 +67,7 @@ width: 100%;
 height: 11px;
 outline: none;
 margin-top: 3px;
-box-shadow: 2px 2px 1px ${siteTheme.darkPink};
+box-shadow: 1px 1px 2px ${siteTheme.darkPink};
 ::before {
   content: '';
   height: 11px;
@@ -139,14 +139,15 @@ box-shadow: 2px 2px 1px ${siteTheme.darkPink};
     background: var(--selectedKnobby);
     border: 1px solid ${siteTheme.darkPink}
   }
-}`
+}
+`
 
 const StyledForwardBack = styled.button`
   background: none;
   border: none;
   display: flex;
   align-items: center;
-  font-size: 18px;
+  font-size: 24px;
   color: ${siteTheme.lightPink};
   text-shadow: 1px 1px 1px ${siteTheme.darkPink};
   cursor: pointer;
@@ -158,12 +159,12 @@ const StyledTime = styled.div`
 const StyledControlBox = styled.div`
   position: absolute;
   bottom: 50px;
-  width: 80vw;
+  width: 90%;
+  max-width: 400px;
   margin: 0;
   padding: 0;
   color: ${siteTheme.lightPink};
   text-shadow: 1px 1px 1px ${siteTheme.darkPink};
-
 `
 
 const StyledControlsWrapper = styled.div`
@@ -198,6 +199,7 @@ export const Player = ({ episode }) => {
     audioPlayer.current.setAttribute('src', audio_url)
     setDuration(epDuration)
     progressBar.current.max = epDuration
+    isPlaying && audioPlayer.current.play()
   }, [audio_url, epDuration])
 
   const calculateTime = (secs) => {
@@ -254,9 +256,9 @@ export const Player = ({ episode }) => {
         <Image src={artwork_url} height={400} width={400} alt={`Episode ${episode_number} artwork`} className='backgroundImage'/>
         <StyledControlBox>
           <StyledControlsWrapper>
-            <StyledForwardBack onClick={backThirty}><BsArrowLeftShort/>30</StyledForwardBack>
+            <StyledForwardBack onClick={backThirty}><BsArrowLeftShort className='arrow'/>30</StyledForwardBack>
             <StyledPlayButton onClick={togglePlayPause}>{isPlaying? <FaPause/> : <FaPlay className='play'/>}</StyledPlayButton>
-            <StyledForwardBack onClick={forwardThirty}>30<BsArrowRightShort/></StyledForwardBack>
+            <StyledForwardBack onClick={forwardThirty}>30<BsArrowRightShort className='arrow'/></StyledForwardBack>
           </StyledControlsWrapper>
           <StyledControlsWrapper>
             <StyledTime>{calculateTime(currentTime)}</StyledTime>
