@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, createRef } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { getEpisodeData, formatEpisodeData } from '../lib/episodes'
@@ -17,17 +17,16 @@ export default function Home({ episodes }) {
   const [ selected, setSelected ] = useState(episodes[0].id)
   const [ selectedEpisode, setSelectedEpisode ] = useState(null)
   const [ show, setShow ] = useState(true)
-  const [ playerEpisode, setPlayerEpisode ] = useState(null)
-
-  const playerRef = useRef()
+  const [ playerEpisode, setPlayerEpisode ] = useState(episodes[0])
+  const episodeLoaded = useRef(false)
+  const player = useRef()
 
   useEffect(() => {
     setShow(false)
-    setPlayerEpisode(episodes[0])
   }, [episodes])
   useEffect(() => {
     const body = document.querySelector("body")
-    body.style.overflow = show ? "hidden" : "auto"
+    //body.style.overflow = show ? "hidden" : "auto"
   }, [show])
   useEffect(() => {
     setSelectedEpisode(episodes.find((ep) => ep.id === selected))
@@ -38,12 +37,17 @@ export default function Home({ episodes }) {
     setShow(true)
   }
   const handlePlayerEpisodeSelect = () => {
-    setPlayerEpisode(selectedEpisode)
     setShow(false)
+    setPlayerEpisode(selectedEpisode)
   }
+
   useEffect(() => {
-    playerRef?.current?.focus()
+    if (episodeLoaded.current) {
+      setTimeout(() => player?.current?.scrollIntoView({ behavior: "smooth" }), 1)
+    }
+    episodeLoaded.current = true
   }, [playerEpisode])
+
 
   return (
     <StyledPageContainer>
@@ -58,12 +62,11 @@ export default function Home({ episodes }) {
       </StyledPageHeader>
       <StyledMain>
         <SocialLinks/>
-        { playerEpisode &&
-          <Player
-            ref={playerRef}
-            episode={playerEpisode}
-          />
-        }
+        <div ref={player}>
+        <Player
+          episode={playerEpisode}
+        />
+        </div>
         { selectedEpisode && show &&
           <Modal
             episode={selectedEpisode}
