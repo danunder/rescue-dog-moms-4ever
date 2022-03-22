@@ -58,8 +58,25 @@ const StyledCloseButton = styled.button({
   }
 })
 
-const StyledPlayEpisodeButton = styled.button`
-`
+const StyledPlayEpisodeButton = styled.button({
+  background: siteTheme.green,
+  border: 'none',
+  borderRadius: '30px',
+  height: '50px',
+  padding: '0 1rem',
+  fontFamily: 'Lobster',
+  fontSize: '22px',
+  color: siteTheme.darkPink,
+  textShadow: `1px 1px 2px ${siteTheme.lightPink}`,
+  boxShadow: `1px 1px 1px ${siteTheme.darkGreen}`,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  '.play': {
+    position: 'relative',
+    left: '2px'
+  }
+})
 
 export const Modal = ({
   episode,
