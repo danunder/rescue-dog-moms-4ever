@@ -10,7 +10,9 @@ import {
 } from '../styles/links'
 
 export default function Links () {
-  const linkList = socials.map((link) => {
+  const linkList = socials
+  .filter((link) => link.makeLinkPageLink)
+  .map((link) => {
     const { service, url, linkText } = link
     return (
       <StyledLinkWrapper href={url} rel="noopener noreferrer" target="_blank" key={service}>
