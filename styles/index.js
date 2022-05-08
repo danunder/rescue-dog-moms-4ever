@@ -34,3 +34,19 @@ export const StyledMain = styled.main({
   justifyContent: 'center',
   alignItems: 'center'
 })
+
+export const StyledLink = styled.a({
+  margin: '0.5rem 0',
+  borderRadius: '10px',
+  boxShadow: `0 0 15px ${siteTheme.darkGreen}`,
+  h3: {
+    margin: '1rem 1rem',
+    fontSize: '24px'
+  },
+  ":active, :focus, :hover": {
+    color: `${siteTheme.darkPink}`,
+    textShadow: `1px 1px ${siteTheme.pink}`,
+    boxShadow: `0px 0px 25px ${siteTheme.pink}`,
+  },
+  transition: 'color 0.15s ease, box-shadow 0.15s ease, border 0.15s ease, text-shadow 0.15s ease'
+})

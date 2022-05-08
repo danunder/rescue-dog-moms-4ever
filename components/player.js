@@ -8,7 +8,7 @@ const StyledAudioWrapper = styled.div({
   position: 'relative',
   margin: '1rem',
   padding: '1rem',
-  boxShadow: '0 0 30px rgba(0,0,0,0.8)',
+  boxShadow: `0 0 15px ${siteTheme.darkGreen}`,
   borderRadius: '10px',
   background: siteTheme.darkGreen,
   overflow: 'hidden',
