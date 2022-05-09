@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, createRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { getEpisodeData, formatEpisodeData } from '../lib/episodes'
@@ -9,7 +9,8 @@ import { Player } from '../components/player'
 import {
   StyledPageContainer,
   StyledPageHeader,
-  StyledMain
+  StyledMain,
+  StyledLink
 } from '../styles/index'
 
 export default function Home({ episodes }) {
@@ -26,7 +27,7 @@ export default function Home({ episodes }) {
   }, [episodes])
   useEffect(() => {
     const body = document.querySelector("body")
-    //body.style.overflow = show ? "hidden" : "auto"
+    body.style.overflow = show ? "hidden" : "auto"
   }, [show])
   useEffect(() => {
     setSelectedEpisode(episodes.find((ep) => ep.id === selected))
@@ -52,13 +53,13 @@ export default function Home({ episodes }) {
   return (
     <StyledPageContainer>
       <Head>
-        <title>Rescue Dog Moms</title>
-        <meta name="description" content="A parenting podcast" />
+        <title>Rescue Dog Love</title>
+        <meta name="description" content="A Rescue Community Podcast" />
       </Head>
       <StyledPageHeader>
-        <Image src="/RDM_LOGO_2.png" alt="Rescue Dog Moms" width={476} height={600} />
-        <h1>Rescue Dog Moms</h1>
-        <h3>A parenting podcast</h3>
+        <Image src="/RDL_LOGO_cropped.jpg" alt="Rescue Dog Love logo" width={476} height={600} />
+        <h1>Rescue Dog Love</h1>
+        <h3>A Rescue Community Podcast</h3>
       </StyledPageHeader>
       <StyledMain>
         <SocialLinks/>
@@ -74,6 +75,13 @@ export default function Home({ episodes }) {
             onPlayerEpisodeSelect={() => handlePlayerEpisodeSelect}
           />
         }
+        <StyledLink
+          href="https://www.buymeacoffee.com/rescuedogmoms"
+          rel="noopener noreferrer"
+          target="_blank"
+          >
+            <h3>Support the podcast</h3>
+          </StyledLink>
         <Episodes
           episodes={episodes}
           onSelect={handleEpisodeSelect}

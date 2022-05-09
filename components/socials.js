@@ -8,7 +8,7 @@ const StyledIconsWrapper = styled.span({
   marginBottom: '4rem'
 })
 const StyledIconWrapper = styled.a({
-  margin: '1rem'
+  margin: '0.75rem'
 })
 
 export const SocialLinks = () => {

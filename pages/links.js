@@ -26,14 +26,14 @@ export default function Links () {
   return (
     <StyledPageContainer>
       <Head>
-        <title>Rescue Dog Moms Links</title>
+        <title>Rescue Dog Love Links</title>
         <meta name="description" content="Links to our content" />
         <link rel="icon" href="/RDM_LOGO_2.png" />
       </Head>
       <StyledPageHeader>
-        <Image src="/RDM_LOGO_2.png" alt="Rescue Dog Moms" width={179} height={225} />
-        <h1>Rescue Dog Moms Podcast</h1>
-        <h3>Listen to our latest episode!</h3>
+        <Image src="/RDM_LOGO_2.png" alt="Rescue Dog Love" width={179} height={225} />
+        <h1>Rescue Dog Love</h1>
+        <h3>A Rescue Community Podcast</h3>
       </StyledPageHeader>
       <StyledMain>
         {linkList}
