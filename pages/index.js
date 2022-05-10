@@ -76,7 +76,7 @@ export default function Home({ episodes }) {
           />
         }
         <StyledLink
-          href="https://www.buymeacoffee.com/rescuedogmoms"
+          href="https://www.buymeacoffee.com/rescuedoglove"
           rel="noopener noreferrer"
           target="_blank"
           >
