@@ -200,7 +200,7 @@ export const Player = ({ episode }) => {
     setDuration(epDuration)
     progressBar.current.max = epDuration
     isPlaying && audioPlayer.current.play()
-  }, [audio_url, epDuration])
+  }, [audio_url, epDuration, isPlaying])
 
   const calculateTime = (secs) => {
     const minutes = Math.floor(secs / 60)

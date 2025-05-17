@@ -6,6 +6,7 @@ import { Episodes } from '../components/episodes'
 import { Modal } from '../components/modal'
 import { SocialLinks } from '../components/socials'
 import { Player } from '../components/player'
+import { About } from '../components/about'
 import {
   StyledPageContainer,
   StyledPageHeader,
@@ -82,6 +83,7 @@ export default function Home({ episodes }) {
           >
             <h3>Support the podcast</h3>
           </StyledLink>
+          <About/>
         <Episodes
           episodes={episodes}
           onSelect={handleEpisodeSelect}
