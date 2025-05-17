@@ -31,6 +31,6 @@ h1 {
 }
 
 h3 {
-  font-size: 16px
+  font-size: 20px
 }
 `

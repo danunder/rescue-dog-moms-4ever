@@ -36,8 +36,13 @@ const StyledEpisode = styled.div({
     boxShadow: `1px 1px ${siteTheme.pink}`,
     padding: '0.5rem'
   },
-  h2: {
+  h3: {
     maxWidth: '300px'
+  },
+  img: {
+    borderRadius: '25px',
+    maxWidth: '100%',
+    maxHeight: '100%'
   }
 })
 export const Episodes = ({
@@ -50,7 +55,7 @@ export const Episodes = ({
     artwork_url
   }) =>(
       <StyledEpisode key={id} onClick={() => onSelect(id)}>
-        <h2>{title}</h2>
+        <h3>{title}</h3>
         <Image src={artwork_url} alt={`episode ${id} artwork`} width={350} height={350}/>
       </StyledEpisode>
   ))
