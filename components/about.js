@@ -1,11 +1,14 @@
 import Image from 'next/image'
 import styled from 'styled-components'
+import { StyledImageWrapper } from '../styles/index'
+import { StyledLink } from '../styles/index'
 
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'column',
-  padding: '2rem',
-    maxWidth: '800px',
+
+  maxWidth: '600px',
+  alignItems: 'center',
   
 })
 
@@ -78,17 +81,28 @@ export const About = () => {
       <ItalicParagraph>
         If you&apos;re looking for dog services, you&apos;ve come to the right place! Whether your dog LOOOOOVES a good walkie, or needs a pal to take care of them when you&apos;re on holiday, Yamini can do it all.
       </ItalicParagraph>
+      <StyledLink
+    
+                href='https://docs.google.com/forms/d/e/1FAIpQLSe2IhobMJevstO-nye1XTTkhj-KeLyUgK8KwnyvCzCjQphlBQ/viewform'
       
-      <ImageContainer>
+      
+                
+                rel="noopener noreferrer"
+                target="_blank"
+                >
+                  <h3>BOOK A COMPLIMENTARY MEET AND GREET</h3>
+                </StyledLink>
+      <StyledImageWrapper>
         <Image 
           src="/YaminiAndQueenie.jpeg" 
           alt="Yamini and Queenie" 
-          layout="responsive"
+          style={{objectFit: 'contain'}}
           width={2316} 
           height={3088}
           priority
+          
         />
-      </ImageContainer>
+      </StyledImageWrapper>
       
       <Heading>ABOUT YAMINI</Heading>
       <Paragraph>
@@ -254,7 +268,7 @@ export const About = () => {
         />
       </ImageContainer>
       
-      <Heading>BOOK A COMPLIMENTARY MEET AND GREET</Heading>
+      
     </Container>
   )
 }

@@ -11,7 +11,8 @@ import {
   StyledPageContainer,
   StyledPageHeader,
   StyledMain,
-  StyledLink
+  StyledLink,
+  StyledImageWrapper
 } from '../styles/index'
 
 export default function Home({ episodes }) {
@@ -43,10 +44,13 @@ export default function Home({ episodes }) {
     setPlayerEpisode(selectedEpisode)
   }
 
+  let hasUsedPlayer = false
+
   useEffect(() => {
-    if (episodeLoaded.current) {
+    if (episodeLoaded.current && !hasUsedPlayer) {
       setTimeout(() => player?.current?.scrollIntoView({ behavior: "smooth" }), 1)
     }
+    hasUsedPlayer = true
     episodeLoaded.current = true
   }, [playerEpisode])
 
@@ -55,12 +59,32 @@ export default function Home({ episodes }) {
     <StyledPageContainer>
       <Head>
         <title>Rescue Dog Love</title>
-        <meta name="description" content="A Rescue Community Podcast" />
+        <meta name="description" content="A Rescue Community Podcast and Canine professional services" />
       </Head>
       <StyledPageHeader>
-        <Image src="/RDL_LOGO_cropped.jpg" alt="Rescue Dog Love logo" width={476} height={600} />
-        <h1>Rescue Dog Love</h1>
-        <h3>A Rescue Community Podcast</h3>
+        <StyledImageWrapper>
+          <Image src="/RDL_LOGO.png" alt="Rescue Dog Love logo" width={1080} height={1177} style={{ objectFit: 'contain'}} />
+        </StyledImageWrapper>
+        <h1 style={{ padding: '16px' }}>Rescue Dog Love</h1>
+        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', justifyItems: 'center', alignItems: 'center' }}>
+        <StyledLink
+          href="/services"
+          target="_blank"
+          >
+            <h3>Services</h3>
+          </StyledLink><StyledLink
+          href="#episodes"
+          >
+            <h3>Episodes</h3>
+          </StyledLink>
+          <StyledLink
+          href="https://www.buymeacoffee.com/rescuedoglove"
+          rel="noopener noreferrer"
+          target="_blank"
+          >
+            <h3>Support the podcast</h3>
+          </StyledLink>
+          </div>
       </StyledPageHeader>
       <StyledMain>
         <SocialLinks/>
@@ -76,18 +100,12 @@ export default function Home({ episodes }) {
             onPlayerEpisodeSelect={() => handlePlayerEpisodeSelect}
           />
         }
-        <StyledLink
-          href="https://www.buymeacoffee.com/rescuedoglove"
-          rel="noopener noreferrer"
-          target="_blank"
-          >
-            <h3>Support the podcast</h3>
-          </StyledLink>
-          <About/>
+        <div id="episodes">
         <Episodes
           episodes={episodes}
           onSelect={handleEpisodeSelect}
         />
+        </div>
       </StyledMain>
     </StyledPageContainer>
   )

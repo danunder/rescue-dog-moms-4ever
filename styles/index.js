@@ -23,10 +23,24 @@ export const StyledPageHeader = styled.header({
   },
   h3: {
     fontSize: '24px'
-  },
-  marginBottom: '1rem'
+  }
 })
 
+export const StyledImageWrapper = styled.div({
+  margin: '1.5rem 0',
+  position: 'relative',
+  img: {
+    borderRadius: '10px',
+    maxWidth: '400px',
+    maxHeight: '480px',
+  },
+  '@media (max-width: 600px)': {
+    img: {
+      maxWidth: '300px',
+      maxHeight: '360px'
+    }
+  }
+})
 export const StyledMain = styled.main({
   padding: 0,
   display: 'flex',
@@ -36,12 +50,12 @@ export const StyledMain = styled.main({
 })
 
 export const StyledLink = styled.a({
-  margin: '0.5rem 0',
+  margin: '0.5rem 1rem',
   borderRadius: '10px',
   boxShadow: `0 0 15px ${siteTheme.darkGreen}`,
   h3: {
     margin: '1rem 1rem',
-    fontSize: '24px'
+    fontSize: '1.5rem'
   },
   ":active, :focus, :hover": {
     color: `${siteTheme.darkPink}`,

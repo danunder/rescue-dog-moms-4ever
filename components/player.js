@@ -15,7 +15,7 @@ const StyledAudioWrapper = styled.div({
   zIndex: 0
 })
 const StyledWrapper = styled.div({
-  maxWidth: '450px',
+  maxWidth: '400px',
   '.backgroundImage': {
     opacity: '35%',
     zIndex: '-1',
@@ -25,6 +25,7 @@ const StyledWrapper = styled.div({
   h3: {
     margin: '1.5rem',
     position: 'absolute',
+    zIndex: '10',
     top: '16px',
     left: '0px',
     fontSize: '24px',
