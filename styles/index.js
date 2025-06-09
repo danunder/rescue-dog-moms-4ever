@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { siteTheme } from '../styles/theme.config'
 
 export const StyledPageContainer = styled.div({
-  padding: 0,
+  padding: '12px',
   background: `${siteTheme.green}`,
   width: '100%',
   minHeight: '100vh',
@@ -36,6 +36,7 @@ export const StyledImageWrapper = styled.div({
   },
   '@media (max-width: 600px)': {
     img: {
+      borderRadius: '10px',
       maxWidth: '300px',
       maxHeight: '360px'
     }

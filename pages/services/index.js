@@ -12,7 +12,7 @@ import {
 
 export default function Services() {
 
-  const StyledImageWrapper = styled.div({
+  const StyledLogoWrapper = styled.div({
     position: 'relative',
     img: {
       borderRadius: '10px',
@@ -35,9 +35,9 @@ export default function Services() {
         <meta name="description" content="A Rescue Community Podcast and Canine professional services" />
       </Head>
       <StyledPageHeader>
-        <StyledImageWrapper>
+        <StyledLogoWrapper>
           <Image src="/services.png" alt="Rescue Dog Love Walking and Boarding logo" width={1080} height={531} style={{ objectFit: 'contain' }} />
-        </StyledImageWrapper>        
+        </StyledLogoWrapper>        
       </StyledPageHeader>
       
       <StyledMain>

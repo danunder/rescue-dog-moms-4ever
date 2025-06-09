@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import styled from 'styled-components'
-import { StyledImageWrapper } from '../styles/index'
-import { StyledLink } from '../styles/index'
+import { StyledLink, StyledImageWrapper } from '../styles/index'
 
 const Container = styled.div({
   display: 'flex',
@@ -75,6 +74,7 @@ const TableCell = styled.td({
   borderBottom: '1px solid #eaeaea'
 })
 
+
 export const About = () => {
   return (
     <Container>
@@ -94,13 +94,10 @@ export const About = () => {
                 </StyledLink>
       <StyledImageWrapper>
         <Image 
-          src="/YaminiAndQueenie.jpeg" 
+          src="/YaminiAndQueenie.png" 
           alt="Yamini and Queenie" 
           style={{objectFit: 'contain'}}
-          width={2316} 
-          height={3088}
           priority
-          
         />
       </StyledImageWrapper>
       
